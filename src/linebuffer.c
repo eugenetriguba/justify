@@ -10,6 +10,7 @@ LineBuffer *linebuffer_create(size_t buffer_capacity) {
     }
     lb->_buffer = malloc(sizeof(buffer_capacity) + 1);
     if (lb->_buffer == NULL) {
+        free(lb);
         return NULL;
     }
     lb->_num_words = 0;
@@ -64,14 +65,14 @@ int linebuffer_write_justified(LineBuffer *lb, FILE *fp) {
             }
         } else {
             spaces_to_insert = extra_spaces / (words_remaining - 1);
+            extra_spaces -= spaces_to_insert;
             for (size_t j = 1; j <= spaces_to_insert + 1; j++) {
                 return_code = fputc(' ', fp);
                 if (return_code == EOF) {
                     return EOF;
                 }
-                extra_spaces -= spaces_to_insert;
-                words_remaining--;
             }
+            words_remaining--;
         }
     }
     return_code = fputc('\n', fp);
