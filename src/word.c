@@ -1,28 +1,37 @@
 #include "word.h"
 
-static int read_char(FILE *fp);
+#include <ctype.h>
 
 int read_word(FILE *fp, char *word, size_t length) {
+    if (fp == NULL || word == NULL) {
+        return READ_WORD_ERR_READ;
+    }
+
     int ch;
     size_t position = 0;
 
-    while ((ch = read_char(fp)) == ' ')
+    while (isspace(ch = getc(fp)))
         ;
 
-    while (ch != ' ' && ch != EOF) {
-        if (position < length) {
-            word[position++] = ch;
+    while (!isspace(ch) && ch != EOF) {
+        if (position >= length - 1) {
+            // Note: -1 to ensure we have space for the null terminator
+            // Once we hit the end of our available space, we stop reading,
+            // even if we didn't read the whole word.
+            break;
         }
-        ch = read_char(fp);
+        word[position++] = ch;
+        ch = getc(fp);
     }
-    word[position] = '\0';
-    return ch;
-}
+    if (length >= 0) {
+        word[position] = '\0';
+    }
 
-static inline int read_char(FILE *fp) {
-    int ch = getc(fp);
-    if (ch == '\n' || ch == '\t') {
-        return ' ';
+    if (ferror(fp)) {
+        return READ_WORD_ERR_READ;
     }
-    return ch;
+    if (position == 0 && ch == EOF) {
+        return READ_WORD_ERR_EOF;
+    }
+    return READ_WORD_SUCCESS;
 }

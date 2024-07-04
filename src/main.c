@@ -1,8 +1,9 @@
-#include "linebuffer.h"
-#include "word.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "linebuffer.h"
+#include "word.h"
 
 #define MAX_WORD_LENGTH 20
 
