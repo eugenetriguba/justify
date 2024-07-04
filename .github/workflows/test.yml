@@ -3,8 +3,8 @@ name: Run tests
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
+  test:
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
 
