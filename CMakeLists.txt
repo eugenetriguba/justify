@@ -17,3 +17,8 @@ set(SRC_FILES
 )
 include_directories(src)
 add_executable(justify ${SRC_FILES})
+
+include(CTest)
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
