@@ -7,13 +7,13 @@ int read_word(FILE *fp, char *word, size_t length) {
     size_t position = 0;
 
     while ((ch = read_char(fp)) == ' ')
-	;
+        ;
 
     while (ch != ' ' && ch != EOF) {
-	if (position < length) {
-	    word[position++] = ch;
-	}
-	ch = read_char(fp);
+        if (position < length) {
+            word[position++] = ch;
+        }
+        ch = read_char(fp);
     }
     word[position] = '\0';
     return ch;
@@ -22,8 +22,7 @@ int read_word(FILE *fp, char *word, size_t length) {
 static inline int read_char(FILE *fp) {
     int ch = getc(fp);
     if (ch == '\n' || ch == '\t') {
-	return ' ';
+        return ' ';
     }
     return ch;
 }
-

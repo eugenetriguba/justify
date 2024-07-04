@@ -1,8 +1,8 @@
 #ifndef LINEBUFFER_H
 #define LINEBUFFER_H
 
-#include <stdio.h>
 #include <stddef.h>
+#include <stdio.h>
 
 typedef struct {
     size_t _num_words;
