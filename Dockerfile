@@ -1,18 +1,22 @@
 FROM alpine:3.20.1
 
 RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
+	apk upgrade && \
+	apk add --no-cache \
 	build-base \
-	gdb \
-	gcc \
-	make \
+	lldb \
+	clang \
+	cmake \
 	valgrind \
-	bash
+	bash \
+	vim
 
 WORKDIR /app
 COPY . /app
 
-RUN make
+RUN mkdir build \
+	&& cd build \
+	&& cmake .. \
+	&& cmake --build .
 
 ENTRYPOINT ["/bin/bash"]

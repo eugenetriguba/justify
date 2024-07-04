@@ -3,3 +3,7 @@
 
 # Build
 /justify
+/build
+
+# Editors
+.vscode
