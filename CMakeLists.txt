@@ -10,6 +10,12 @@ if (CMAKE_C_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-Wall -Wextra -ansi)
 endif()
 
+include(CheckFunctionExists)
+check_function_exists(strlcat HAVE_STRLCAT)
+if(NOT HAVE_STRLCAT)
+  add_definitions(-DHAVE_STRLCAT=1)
+endif()
+
 set(SRC_FILES
     src/linebuffer.c
     src/word.c
