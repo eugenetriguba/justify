@@ -28,4 +28,4 @@ jobs:
 
     - name: Test
       working-directory: ${{ steps.build-output-dir.outputs.path }}
-      run: ctest
+      run: ctest --output-on-failure
