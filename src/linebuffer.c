@@ -15,6 +15,7 @@ LineBuffer *linebuffer_create(size_t buffer_capacity) {
         free(lb);
         return NULL;
     }
+    memset(lb->_buffer, 0, lb->_buffer_capacity + 1);
     lb->_num_words = 0;
     lb->_buffer_length = 0;
     lb->_buffer_capacity = buffer_capacity;
@@ -27,7 +28,7 @@ void linebuffer_destroy(LineBuffer *lb) {
 }
 
 void linebuffer_clear(LineBuffer *lb) {
-    memset(lb->_buffer, 0, lb->_buffer_length + 1);
+    memset(lb->_buffer, 0, lb->_buffer_capacity + 1);
     lb->_num_words = 0;
     lb->_buffer_length = 0;
 }
@@ -38,7 +39,7 @@ void linebuffer_append_word(LineBuffer *lb, const char *word) {
         lb->_buffer[lb->_buffer_length + 1] = '\0';
         lb->_buffer_length++;
     }
-    strcat(lb->_buffer, word);
+    strlcat(lb->_buffer, word, (lb->_buffer_capacity + 1) - lb->_buffer_length);
     lb->_buffer_length += strlen(word);
     lb->_num_words++;
 }
