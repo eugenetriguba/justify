@@ -1,0 +1,10 @@
+services:
+  justify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: justify
+    volumes:
+      - .:/app
+    tty: true
+
