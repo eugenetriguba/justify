@@ -12,7 +12,7 @@ endif()
 
 include(CheckFunctionExists)
 check_function_exists(strlcat HAVE_STRLCAT)
-if(NOT HAVE_STRLCAT)
+if(HAVE_STRLCAT)
   add_definitions(-DHAVE_STRLCAT=1)
 endif()
 
