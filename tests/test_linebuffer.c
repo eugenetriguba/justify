@@ -87,7 +87,7 @@ void test_linebuffer_write_justified(void **state) {
     rewind(fp);
     char buffer[50];
     fgets(buffer, sizeof(buffer), fp);
-    assert_string_equal(buffer, "hello     world\n");
+    assert_string_equal(buffer, "hello          world\n");
 
     fclose(fp);
     linebuffer_destroy(lb);
@@ -99,7 +99,7 @@ int main(void) {
         cmocka_unit_test(test_linebuffer_append_word),
         cmocka_unit_test(test_linebuffer_space_remaining),
         cmocka_unit_test(test_linebuffer_write),
-        // cmocka_unit_test(test_linebuffer_write_justified),
+        cmocka_unit_test(test_linebuffer_write_justified),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
