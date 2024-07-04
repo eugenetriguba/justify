@@ -1,5 +1,6 @@
 #include "linebuffer.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +27,7 @@ void linebuffer_destroy(LineBuffer *lb) {
 }
 
 void linebuffer_clear(LineBuffer *lb) {
+    memset(lb->_buffer, 0, lb->_buffer_length + 1);
     lb->_num_words = 0;
     lb->_buffer_length = 0;
 }
@@ -59,8 +61,8 @@ int linebuffer_write_justified(LineBuffer *lb, FILE *fp) {
     size_t spaces_to_insert = 0;
 
     for (size_t i = 0; i < lb->_buffer_length; i++) {
-        if (lb->_buffer[i] != ' ') {
-            return_code = fputs(&lb->_buffer[i], fp);
+        if (!isspace(lb->_buffer[i])) {
+            return_code = fputc(lb->_buffer[i], fp);
             if (return_code == EOF) {
                 return EOF;
             }
