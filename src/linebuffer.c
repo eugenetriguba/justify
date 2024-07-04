@@ -12,12 +12,12 @@ LineBuffer *linebuffer_create(size_t buffer_capacity) {
     if (lb == NULL) {
         return NULL;
     }
-    lb->_buffer = malloc(sizeof(buffer_capacity) + 1);
+    lb->_buffer = malloc(buffer_capacity + 1);
     if (lb->_buffer == NULL) {
         free(lb);
         return NULL;
     }
-    memset(lb->_buffer, 0, lb->_buffer_capacity + 1);
+    memset(lb->_buffer, 0, buffer_capacity + 1);
     lb->_num_words = 0;
     lb->_buffer_length = 0;
     lb->_buffer_capacity = buffer_capacity;
