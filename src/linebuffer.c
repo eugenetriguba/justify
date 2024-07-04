@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "strlcat.h"
+
 LineBuffer *linebuffer_create(size_t buffer_capacity) {
     LineBuffer *lb = malloc(sizeof(LineBuffer));
     if (lb == NULL) {
