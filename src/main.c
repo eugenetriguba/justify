@@ -33,7 +33,7 @@ int main(void) {
         memset(word, 0, MAX_WORD_LENGTH + 2);
     }
     if (read_word_result == READ_WORD_ERR_READ) {
-        printf("Error reading word\n");
+        fprintf(stderr, "Error reading word\n");
         return 1;
     }
     return 0;
