@@ -2,7 +2,6 @@
 #define HAVE_STRLCAT
 
 #include <stddef.h>
-#include <string.h>
 
 /*
  * Appends src to string dst of size siz (unlike strncat, siz is the
@@ -11,29 +10,6 @@
  * Returns strlen(src) + MIN(siz, strlen(initial dst)).
  * If retval >= siz, truncation occurred.
  */
-size_t strlcat(char *dst, const char *src, size_t dstsize) {
-    char *d = dst;
-    const char *s = src;
-    size_t n = dstsize;
-    size_t dlen;
+size_t strlcat(char *dst, const char *src, size_t dstsize);
 
-    /* Find the end of dst and adjust bytes left but don't go past end */
-    while (n-- != 0 && *d != '\0')
-        d++;
-    dlen = d - dst;
-    n = dstsize - dlen;
-
-    if (n == 0) return (dlen + strlen(s));
-    while (*s != '\0') {
-        if (n != 1) {
-            *d++ = *s;
-            n--;
-        }
-        s++;
-    }
-    *d = '\0';
-
-    return (dlen + (s - src));
-}
-
-#endif /* HAVE_STRLCAT */
+#endif
