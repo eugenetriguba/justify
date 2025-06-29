@@ -4,6 +4,8 @@
 # Build
 /justify
 /build
+.cache
 
 # Editors
 .vscode
+
