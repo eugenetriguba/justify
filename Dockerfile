@@ -1,9 +1,12 @@
-FROM alpine:3.20.1
+FROM alpine:3.22.0
 
 RUN apk update && \
 	apk upgrade && \
 	apk add --no-cache \
 	build-base \
+	pkgconf \
+	cmocka \
+	cmocka-dev \
 	lldb \
 	clang \
 	cmake \

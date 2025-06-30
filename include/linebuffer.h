@@ -2,6 +2,7 @@
 #define LINEBUFFER_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 typedef struct {
@@ -40,8 +41,20 @@ void linebuffer_clear(LineBuffer *lb);
  *
  * @param lb The line buffer to append to.
  * @param word The word to append.
+ *
+ * @retursns true if the word was appended; false if it could not fit.
  */
-void linebuffer_append_word(LineBuffer *lb, const char *word);
+bool linebuffer_append_word(LineBuffer *lb, const char *word);
+
+/**
+ * @brief Check if a word can fit in the current line buffer.
+ *
+ * @param lb The line buffer to check.
+ * @param word The word to check.
+ *
+ * @returns true if the word can fit; false otherwise.
+ */
+bool linebuffer_can_fit(LineBuffer *lb, const char *word);
 
 /**
  * @brief Check how many characters can be added.

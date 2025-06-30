@@ -1,0 +1,53 @@
+.TH JUSTIFY 1 "July 2025" "justify 0.1.0" "User Commands"
+.SH NAME
+justify \- format and justify text to a specified line width
+.SH SYNOPSIS
+.B justify
+[\fB-w\fR \fIWIDTH\fR]
+.SH DESCRIPTION
+.B justify
+reads text from standard input, formats it into lines of a specified width, and justifies the text so that both the left and right margins are aligned. Justification is achieved by distributing extra spaces between words so that each line (except the last line of a paragraph) is exactly the specified width.
+
+The last line of each paragraph is left-aligned and not justified.
+
+.SH OPTIONS
+.TP
+.BR \-w ", " \-\-width " " \fIWIDTH\fR
+Set the line width for justification. The default is 72 characters.
+
+.SH USAGE
+Input is read from standard input. Output is written to standard output.
+
+To justify a file to 80 columns:
+.RS
+.nf
+$ justify -w 80 < input.txt
+.fi
+.RE
+
+To justify text from a pipe:
+.RS
+.nf
+$ echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit." | justify
+.fi
+.RE
+
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+An error occurred (e.g., read error).
+
+.SH NOTES
+Before appending a word to the current line, the program ensures there is enough space for the word (and a space if not the first word). If not enough space remains, the current line is flushed (justified) and a new line is started.
+
+.SH LIMITATIONS
+The current implementation does not fully wrap or split words that are longer than the specified line width. Overlong words may be truncated or marked, rather than wrapped across lines.
+
+.SH AUTHOR
+Eugene Triguba <hello@eugenetriguba.com>
+
+.SH SEE ALSO
+fmt(1), fold(1)
