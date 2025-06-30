@@ -25,6 +25,9 @@ set(SRC_FILES
 include_directories(src)
 add_executable(justify ${SRC_FILES})
 
+install(TARGETS justify RUNTIME DESTINATION bin)
+install(FILES doc/justify.1 DESTINATION share/man/man1)
+
 include(CTest)
 if(BUILD_TESTING)
     add_subdirectory(tests)

@@ -22,3 +22,29 @@ documents.
 `justify` achieves this by adding extra space between words or letters to
 ensure that each line extends to the right margin. The last line of a
 paragraph is not justified and is aligned left.
+
+## Installation
+
+1. Clone the repository
+```sh
+$ git clone https://github.com/eugenetriguba/justify
+$ cd justify
+```
+
+2. Create a build directory and build the project
+```
+$ cmake -B build -DCMAKE_BUILD_TYPE=Release
+$ cmake --build build
+```
+
+3. Install the binary and man page (may require sudo)
+```sh
+$ sudo cmake --install build
+```
+
+This will:
+- Install the `justify` binary to your system’s default binary directory (e.g., `/usr/local/bin`)
+- Install the man page to the appropriate man directory (e.g., `/usr/local/share/man/man1`)
+
+You can then use the `justify` CLI and view the man page via `man justify`.
+
