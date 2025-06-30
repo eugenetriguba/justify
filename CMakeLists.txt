@@ -15,6 +15,8 @@ include(CheckFunctionExists)
 check_function_exists(strlcat HAVE_STRLCAT)
 if(HAVE_STRLCAT)
     add_definitions(-DHAVE_STRLCAT=1)
+else()
+    list(APPEND SRC_FILES src/strlcat.c)
 endif()
 
 set(SRC_FILES
