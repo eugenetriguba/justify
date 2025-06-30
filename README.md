@@ -45,6 +45,14 @@ paragraph is not justified and is aligned left.
 
 ## Installation
 
+### Homebrew (macOS)
+
+```sh
+$ brew tap eugenetriguba/homebrew-justify
+$ brew install justify
+```
+### Manual Build
+
 1. Clone the repository
 ```sh
 $ git clone https://github.com/eugenetriguba/justify
