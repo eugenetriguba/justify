@@ -11,6 +11,12 @@ if (CMAKE_C_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-Wall -Wextra -ansi)
 endif()
 
+set(SRC_FILES
+    src/linebuffer.c
+    src/word.c
+    src/main.c
+)
+
 include(CheckFunctionExists)
 check_function_exists(strlcat HAVE_STRLCAT)
 if(HAVE_STRLCAT)
@@ -19,11 +25,6 @@ else()
     list(APPEND SRC_FILES src/strlcat.c)
 endif()
 
-set(SRC_FILES
-    src/linebuffer.c
-    src/word.c
-    src/main.c
-)
 include_directories(src)
 add_executable(justify ${SRC_FILES})
 
