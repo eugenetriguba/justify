@@ -67,7 +67,7 @@ void test_linebuffer_write(void **state) {
     rewind(fp);
     char buffer[50];
     fgets(buffer, sizeof(buffer), fp);
-    assert_string_equal(buffer, "hello world");
+    assert_string_equal(buffer, "hello world\n");
 
     fclose(fp);
     linebuffer_destroy(lb);
