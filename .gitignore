@@ -5,6 +5,7 @@
 /justify
 /build
 .cache
+/Testing
 
 # Editors
 .vscode
