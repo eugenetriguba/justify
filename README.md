@@ -12,6 +12,26 @@ justify [-w WIDTH] < input.txt
 - Output is written to standard output.
 - Any error messages are written to standard error.
 
+### Example
+
+```
+$ cat test.txt
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi
+dunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita
+tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i
+n reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excep
+teur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
+anim id est laborum.
+$ justify < test.txt
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do  eiusmod
+tempor incidi dunt ut labore et dolore magna aliqua. Ut  enim  ad  minim
+veniam, quis nostrud exercita tion ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor i n reprehenderit in  voluptate
+velit esse cillum dolore eu  fugiat  nulla  pariatur.  Excep  teur  sint
+occaecat cupidatat non proident, sunt  in  culpa  qui  officia  deserunt
+mollit anim id est laborum.
+```
+
 ## How does it work?
 
 Justifying text means aligning the text so both the left and right edges
