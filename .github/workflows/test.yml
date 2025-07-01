@@ -27,3 +27,7 @@ jobs:
     - name: Test
       working-directory: ${{ steps.build-output-dir.outputs.path }}
       run: ctest --output-on-failure
+
+    - name: Bats tests
+      run: ./tests/vendor/bats-core/bin/bats tests/
+
