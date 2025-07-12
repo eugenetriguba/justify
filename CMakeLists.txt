@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.29)
-project(justify VERSION 0.1.1)
+project(justify VERSION 0.1.2)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 set(CMAKE_C_STANDARD 11)

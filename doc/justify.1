@@ -1,4 +1,4 @@
-.TH JUSTIFY 1 "July 2025" "justify 0.1.1" "User Commands"
+.TH JUSTIFY 1 "July 2025" "justify 0.1.2" "User Commands"
 .SH NAME
 justify \- format and justify text to a specified line width
 .SH SYNOPSIS
@@ -43,6 +43,9 @@ An error occurred (e.g., read error).
 
 .SH NOTES
 Before appending a word to the current line, the program ensures there is enough space for the word (and a space if not the first word). If not enough space remains, the current line is flushed (justified) and a new line is started.
+
+.SH LIMITATIONS
+The program assumes ASCII text. This means if multi-byte characters are provided, the output would not be justified correctly.
 
 .SH AUTHOR
 Eugene Triguba <hello@eugenetriguba.com>
