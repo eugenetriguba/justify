@@ -44,9 +44,6 @@ An error occurred (e.g., read error).
 .SH NOTES
 Before appending a word to the current line, the program ensures there is enough space for the word (and a space if not the first word). If not enough space remains, the current line is flushed (justified) and a new line is started.
 
-.SH LIMITATIONS
-The current implementation does not fully wrap or split words that are longer than the specified line width. Overlong words may be truncated or marked, rather than wrapped across lines.
-
 .SH AUTHOR
 Eugene Triguba <hello@eugenetriguba.com>
 

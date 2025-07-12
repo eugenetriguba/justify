@@ -57,16 +57,15 @@ EOF
   assert_output "Hello world"
 }
 
-# TODO: Handle this case properly
-# @test "word longer than buffer is wrapped" {
-#   run "${JUSTIFY_BIN}" -w 60 <<EOF
-# 123456789012345678901234567890123456789012345678901234567890EXTRA
-# EOF
-#   assert_success
-#   expected_output="123456789012345678901234567890123456789012345678901234567890
-# EXTRA"
-#   assert_output "$expected_output"
-# }
+@test "word longer than buffer is wrapped" {
+  run "${JUSTIFY_BIN}" -w 60 <<EOF
+123456789012345678901234567890123456789012345678901234567890EXTRA
+EOF
+  assert_success
+  expected_output="123456789012345678901234567890123456789012345678901234567890
+EXTRA"
+  assert_output "$expected_output"
+}
 
 @test "multiple spaces in input are collapsed when on last left-aligned line" {
   run "${JUSTIFY_BIN}" <<EOF
