@@ -6,11 +6,19 @@ load 'vendor/bats-file/load'
 
 JUSTIFY_BIN="./build/justify"
 
+@test "-h should show the usage mesage" {
+  run "${JUSTIFY_BIN}" -h
+  assert_success
+  assert_output --partial "Usage:"
+}
+
 @test "-w should reject invalid values" {
   run "${JUSTIFY_BIN}" -w 0
   assert_failure
+  assert_output --partial "Usage:"
   run "${JUSTIFY_BIN}" -w -1
   assert_failure
+  assert_output --partial "Usage:"
 }
 
 @test "last line of the output is left aligned" {

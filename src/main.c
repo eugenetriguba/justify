@@ -28,9 +28,11 @@ int main(int argc, char *argv[]) {
                     print_usage(argv[0]);
                     return EXIT_FAILURE;
                 }
-                linebuffer_capacity= (size_t) width;
+                linebuffer_capacity = (size_t) width;
                 break;
             case 'h':
+                print_usage(argv[0]);
+                return EXIT_SUCCESS;
             default:
                 print_usage(argv[0]);
                 return EXIT_FAILURE;
