@@ -17,16 +17,18 @@ void print_usage(const char *prog) {
 
 int main(int argc, char *argv[]) {
     int opt;
+    int width;
     size_t linebuffer_capacity = DEFAULT_LINEBUFFER_CAPACITY;
 
     while ((opt = getopt(argc, argv, "w:h")) != -1) {
         switch (opt) {
             case 'w':
-                linebuffer_capacity = (size_t)atoi(optarg);
-                if (linebuffer_capacity == 0) {
+                width = atoi(optarg);
+                if (width <= 0) {
                     print_usage(argv[0]);
                     return EXIT_FAILURE;
                 }
+                linebuffer_capacity= (size_t) width;
                 break;
             case 'h':
             default:

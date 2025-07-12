@@ -6,6 +6,13 @@ load 'vendor/bats-file/load'
 
 JUSTIFY_BIN="./build/justify"
 
+@test "-w should reject invalid values" {
+  run "${JUSTIFY_BIN}" -w 0
+  assert_failure
+  run "${JUSTIFY_BIN}" -w -1
+  assert_failure
+}
+
 @test "last line of the output is left aligned" {
   run "${JUSTIFY_BIN}" <<EOF
 This is a test of the emergency broadcast system.
