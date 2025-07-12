@@ -1,3 +1,7 @@
+// NOTE: `strlcat` is a safer version of `strcat` that ensures the destination
+// buffer is not overflowed. However, it's not available in all standard
+// libraries. Therefore, we conditionally include it here depending on if the
+// system has it available by default.
 #include <stddef.h>
 #include <string.h>
 
