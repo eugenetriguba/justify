@@ -48,14 +48,14 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
     int read_word_result;
     LineBuffer *lb = linebuffer_create(linebuffer_capacity);
 
-    while ((read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1)) ==
-           READ_WORD_SUCCESS) {
+    read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1);
+    while (read_word_result == READ_WORD_SUCCESS) {
         if (!linebuffer_append_word(lb, word)) {
             linebuffer_write_justified(lb, out);
             linebuffer_clear(lb);
             linebuffer_append_word(lb, word);
         }
-        memset(word, 0, MAX_WORD_LENGTH + 1);
+        read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1);
     }
     if (read_word_result == READ_WORD_ERR_READ) {
         fprintf(stderr, "Error reading word\n");
