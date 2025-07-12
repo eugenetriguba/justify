@@ -57,13 +57,25 @@ EOF
   assert_output "Hello world"
 }
 
-@test "word longer than buffer is wrapped" {
+@test "word longer than buffer is wrapped to next line" {
   run "${JUSTIFY_BIN}" -w 60 <<EOF
 123456789012345678901234567890123456789012345678901234567890EXTRA
 EOF
   assert_success
   expected_output="123456789012345678901234567890123456789012345678901234567890
 EXTRA"
+  assert_output "$expected_output"
+}
+
+@test "word longer than buffer is wrapped across multiple lines" {
+  run "${JUSTIFY_BIN}" -w 20 <<EOF
+verylongwordthatdoesnotfitinasinglelineandshouldbesplitacrossmultiplelines
+EOF
+  assert_success
+  expected_output="verylongwordthatdoes
+notfitinasinglelinea
+ndshouldbesplitacros
+smultiplelines"
   assert_output "$expected_output"
 }
 
