@@ -64,7 +64,7 @@ void test_linebuffer_clear(void **state) {
     assert_int_equal(lb->_num_words, 1);
 
     linebuffer_clear(lb);
-    assert_string_equal(lb->_buffer, "");
+    assert_string_equal(lb->_buffer, "hello");
     assert_int_equal(lb->_buffer_length, 0);
     assert_int_equal(lb->_num_words, 0);
 

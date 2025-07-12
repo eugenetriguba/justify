@@ -7,9 +7,9 @@
 #include "linebuffer.h"
 #include "word.h"
 
-int justify(size_t linebuffer_capacity, FILE *in, FILE *out);
+int justify(size_t line_width, FILE *in, FILE *out);
 
-#define DEFAULT_LINEBUFFER_CAPACITY 72
+#define DEFAULT_LINE_WIDTH 72
 
 void print_usage(const char *prog) {
     fprintf(stderr, "Usage: %s [-w WIDTH]\n", prog);
@@ -17,8 +17,7 @@ void print_usage(const char *prog) {
 
 int main(int argc, char *argv[]) {
     int opt;
-    int width;
-    size_t linebuffer_capacity = DEFAULT_LINEBUFFER_CAPACITY;
+    int width = DEFAULT_LINE_WIDTH;
 
     while ((opt = getopt(argc, argv, "w:h")) != -1) {
         switch (opt) {
@@ -28,7 +27,6 @@ int main(int argc, char *argv[]) {
                     print_usage(argv[0]);
                     return EXIT_FAILURE;
                 }
-                linebuffer_capacity = (size_t) width;
                 break;
             case 'h':
                 print_usage(argv[0]);
@@ -38,15 +36,19 @@ int main(int argc, char *argv[]) {
                 return EXIT_FAILURE;
         }
     }
-    return justify(linebuffer_capacity, stdin, stdout);
+    return justify((size_t) width, stdin, stdout);
 }
 
-int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
-    const size_t MAX_WORD_LENGTH = linebuffer_capacity;
+int justify(size_t line_width, FILE *in, FILE *out) {
+    const size_t MAX_WORD_LENGTH = line_width;
     char word[MAX_WORD_LENGTH + 1];
     size_t word_length;
     int read_word_result;
-    LineBuffer *lb = linebuffer_create(linebuffer_capacity);
+    LineBuffer *lb = linebuffer_create(line_width);
+    if (lb == NULL) {
+        fprintf(stderr, "An error occurred while allocating memory for a line buffer\n");
+        return EXIT_FAILURE;
+    }
 
     read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1);
     while (read_word_result == READ_WORD_SUCCESS) {
@@ -58,11 +60,11 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
         read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1);
     }
     if (read_word_result == READ_WORD_ERR_READ) {
-        fprintf(stderr, "Error reading word\n");
+        fprintf(stderr, "An error occurred while attempting to read in a word\n");
         linebuffer_destroy(lb);
         return EXIT_FAILURE;
     }
-    if (linebuffer_space_remaining(lb) < linebuffer_capacity) {
+    if (linebuffer_space_remaining(lb) < line_width) {
         linebuffer_write(lb, out);
     }
     linebuffer_destroy(lb);

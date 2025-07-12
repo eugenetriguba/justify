@@ -17,14 +17,6 @@ set(SRC_FILES
     src/main.c
 )
 
-include(CheckFunctionExists)
-check_function_exists(strlcat HAVE_STRLCAT)
-if(HAVE_STRLCAT)
-    add_definitions(-DHAVE_STRLCAT=1)
-else()
-    list(APPEND SRC_FILES src/strlcat.c)
-endif()
-
 include_directories(src)
 add_executable(justify ${SRC_FILES})
 
