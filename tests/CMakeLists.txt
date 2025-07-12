@@ -1,11 +1,6 @@
 set(TEST_LINEBUFFER_SOURCES test_linebuffer.c ../src/linebuffer.c)
 set(TEST_WORD_SOURCES test_word.c ../src/word.c)
 
-if(NOT HAVE_STRLCAT)
-    list(APPEND TEST_LINEBUFFER_SOURCES ../src/strlcat.c)
-    list(APPEND TEST_WORD_SOURCES ../src/strlcat.c)
-endif()
-
 add_executable(test_linebuffer ${TEST_LINEBUFFER_SOURCES})
 add_executable(test_word ${TEST_WORD_SOURCES})
 
