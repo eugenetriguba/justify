@@ -42,16 +42,38 @@ EOF
   assert_output "Hello world"
 }
 
-# TODO: Handle this case properly
-# @test "word longer than buffer is wrapped" {
-#   run "${JUSTIFY_BIN}" -w 60 <<EOF
-# 123456789012345678901234567890123456789012345678901234567890EXTRA
-# EOF
-#   assert_success
-#   expected_output="123456789012345678901234567890123456789012345678901234567890
-# EXTRA"
-#   assert_output "$expected_output"
-# }
+# Test word wrapping for words longer than buffer
+@test "word longer than buffer is wrapped" {
+  run "${JUSTIFY_BIN}" -w 60 <<EOF
+123456789012345678901234567890123456789012345678901234567890EXTRA
+EOF
+  assert_success
+  expected_output="123456789012345678901234567890123456789012345678901234567890
+EXTRA"
+  assert_output "$expected_output"
+}
+
+@test "very long word is wrapped across multiple lines" {
+  run "${JUSTIFY_BIN}" -w 20 <<EOF
+verylongwordthatdoesnotfitinasinglelineandshouldbesplitacrossmultiplelines
+EOF
+  assert_success
+  expected_output="verylongwordthatdoes
+notfitinasinglelinea
+ndshouldbesplitacros
+smultiplelines"
+  assert_output "$expected_output"
+}
+
+@test "long word mixed with normal words preserves spacing" {
+  run "${JUSTIFY_BIN}" -w 60 <<EOF
+Hello 123456789012345678901234567890123456789012345678901234567890EXTRA world
+EOF
+  assert_success
+  expected_output="Hello 123456789012345678901234567890123456789012345678901234
+567890EXTRA world"
+  assert_output "$expected_output"
+}
 
 @test "multiple spaces in input are collapsed when on last left-aligned line" {
   run "${JUSTIFY_BIN}" <<EOF
