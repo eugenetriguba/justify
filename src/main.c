@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
 int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
     const size_t MAX_WORD_LENGTH = linebuffer_capacity;
-    char word[MAX_WORD_LENGTH + 2];
+    char word[MAX_WORD_LENGTH + 1];
     size_t word_length;
     int read_word_result;
     LineBuffer *lb = linebuffer_create(linebuffer_capacity);
@@ -72,7 +72,7 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
         fprintf(stderr, "Error reading word\n");
         return EXIT_FAILURE;
     }
-    if (lb->_num_words > 0) {
+    if (linebuffer_space_remaining(lb) < linebuffer_capacity) {
         linebuffer_write(lb, out);
     }
     linebuffer_destroy(lb);
