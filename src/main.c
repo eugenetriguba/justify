@@ -59,6 +59,7 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
     }
     if (read_word_result == READ_WORD_ERR_READ) {
         fprintf(stderr, "Error reading word\n");
+        linebuffer_destroy(lb);
         return EXIT_FAILURE;
     }
     if (linebuffer_space_remaining(lb) < linebuffer_capacity) {
