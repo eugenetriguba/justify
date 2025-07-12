@@ -1,5 +1,4 @@
 #include "linebuffer.h"
-#include "strlcat.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
