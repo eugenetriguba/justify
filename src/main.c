@@ -56,11 +56,6 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
             linebuffer_destroy(lb);
             return EXIT_SUCCESS;
         }
-        if (word_length > MAX_WORD_LENGTH) {
-            // TODO: If the word is too long for a given line,
-            // we should wrap it to the next line.
-            word[MAX_WORD_LENGTH] = '*';
-        }
         if (!linebuffer_append_word(lb, word)) {
             linebuffer_write_justified(lb, out);
             linebuffer_clear(lb);
