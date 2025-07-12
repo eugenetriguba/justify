@@ -7,6 +7,8 @@
 #include "linebuffer.h"
 #include "word.h"
 
+int justify(size_t linebuffer_capacity, FILE *in, FILE *out);
+
 #define DEFAULT_LINEBUFFER_CAPACITY 72
 
 void print_usage(const char *prog) {
@@ -32,18 +34,21 @@ int main(int argc, char *argv[]) {
                 return EXIT_FAILURE;
         }
     }
+    return justify(linebuffer_capacity, stdin, stdout);
+}
 
+int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
     const size_t MAX_WORD_LENGTH = linebuffer_capacity;
     char word[MAX_WORD_LENGTH + 2];
     size_t word_length;
     int read_word_result;
     LineBuffer *lb = linebuffer_create(linebuffer_capacity);
 
-    while ((read_word_result = read_word(stdin, word, MAX_WORD_LENGTH + 1)) ==
+    while ((read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1)) ==
            READ_WORD_SUCCESS) {
         word_length = strlen(word);
         if (word_length == 0) {
-            linebuffer_write(lb, stdout);
+            linebuffer_write(lb, out);
             linebuffer_destroy(lb);
             return EXIT_SUCCESS;
         }
@@ -53,7 +58,7 @@ int main(int argc, char *argv[]) {
             word[MAX_WORD_LENGTH] = '*';
         }
         if (!linebuffer_append_word(lb, word)) {
-            linebuffer_write_justified(lb, stdout);
+            linebuffer_write_justified(lb, out);
             linebuffer_clear(lb);
             linebuffer_append_word(lb, word);
         }
@@ -64,7 +69,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
     if (lb->_num_words > 0) {
-        linebuffer_write(lb, stdout);
+        linebuffer_write(lb, out);
     }
     linebuffer_destroy(lb);
     return EXIT_SUCCESS;
