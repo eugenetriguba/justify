@@ -50,12 +50,6 @@ int justify(size_t linebuffer_capacity, FILE *in, FILE *out) {
 
     while ((read_word_result = read_word(in, word, MAX_WORD_LENGTH + 1)) ==
            READ_WORD_SUCCESS) {
-        word_length = strlen(word);
-        if (word_length == 0) {
-            linebuffer_write(lb, out);
-            linebuffer_destroy(lb);
-            return EXIT_SUCCESS;
-        }
         if (!linebuffer_append_word(lb, word)) {
             linebuffer_write_justified(lb, out);
             linebuffer_clear(lb);

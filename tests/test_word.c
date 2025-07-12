@@ -125,6 +125,24 @@ void test_read_word_empty_input(void **state) {
 }
 
 /**
+ * GIVEN an input string that is only whitespace characters
+ * WHEN we read a word from the file
+ * THEN we expect to get EOF on read
+ */
+void test_read_word_input_with_only_spaces(void **state) {
+    const char *input = "   \t\t\n\n";
+    const char *expected = "";
+    FILE *fp = create_tmp_file(input);
+    char word[100];
+
+    int result = read_word(fp, word, sizeof(word));
+
+    assert_int_equal(result, READ_WORD_ERR_EOF);
+    assert_string_equal(word, expected);
+    fclose(fp);
+}
+
+/**
  * GIVEN a NULL input
  * WHEN we read a word from the file
  * THEN we expect to get a read error
@@ -198,6 +216,7 @@ int main(void) {
         cmocka_unit_test(test_read_word_trailing_spaces),
         cmocka_unit_test(test_read_word_multiple_spaces),
         cmocka_unit_test(test_read_word_empty_input),
+        cmocka_unit_test(test_read_word_input_with_only_spaces),
         cmocka_unit_test(test_read_word_null_fp),
         cmocka_unit_test(test_read_word_null_word),
         cmocka_unit_test(test_read_word_zero_length),
